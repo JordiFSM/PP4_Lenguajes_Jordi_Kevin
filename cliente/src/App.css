@@ -1,0 +1,20 @@
+.btn2{
+	height: 80px;
+  	width: 100px;
+	background-color: chartreuse;
+    color: white;
+    border-radius: 10px;
+	font-size: 20px;
+	cursor: pointer;
+	padding: 10px 20px;
+}
+
+.btn2:active {
+    background-color: gray;
+    box-shadow: 0 0 0 2px white, 0 0 0 4px DarkBlue;
+}
+
+.navBar{
+	padding: 60px 150px;
+	background-color: darkolivegreen;
+}
