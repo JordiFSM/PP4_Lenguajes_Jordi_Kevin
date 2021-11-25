@@ -1,2 +1,2 @@
-# PP4_Lenguajes_Jordi_Kevin
-PP4 Lenguajes
+# PP4_Lenguajes_Parch-s_Web
+Parchís web, implementado con sockets con tecnologías nodejs, react, css.

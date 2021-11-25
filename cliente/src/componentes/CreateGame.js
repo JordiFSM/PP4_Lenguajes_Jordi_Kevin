@@ -1,12 +1,21 @@
 import './CreateGame.css';
-import React from 'react';
+import React, { useState,useEffect,useRef } from 'react';
+import socket from './Socket';
+
 
 const CreateGame=()=> {
+  //const [userName,setUserName] = useState("");
+  //const [roomName,setRoomName] = useState("");
+
+ const enviar = (userName,roomName)=>{
+   socket.emit('Juego', userName,roomName);
+  }
+
   return (
-  <div className="App"> 
-      <header class="join-header">
+       <div className="App"> 
+        <header class="join-header">
           <h1><i class="fas fa-dice">Parchís</i> </h1>
-      </header>
+        </header>
       <div class="join-container">
         <main class="join-main">
           <form action="chat.html">
@@ -17,16 +26,17 @@ const CreateGame=()=> {
                 name="username"
                 id="username"
                 required
+                //value = {userName} onChange={userName=>setUserName(userName.target.value)}
               />
-            </div>
-            <div class="form-control">
               <label for="username">Room Name</label>
               <input
                 type="text"
-                name="username"
+                name="roomname"
                 id="roomname"
                 required
+                //value = {roomName} onChange={roomName=>setRoomName(roomName.target.value)}
               />
+              
             </div>
             {/* <div class="form-control">
               <label for="room">Room</label>
@@ -39,13 +49,17 @@ const CreateGame=()=> {
                 <option value="Java">Java</option>
               </select>
   </div> */}
-            <button type="submit" class="btn">Create Game</button>
+            <button type="submit" class="btn" onClick={capturar}>Create Game</button>
           </form>
         </main>
       </div>
     </div>
-    
   );
+  function capturar(){
+    var nombreUsuario = document.getElementById("username").value;
+    var nombreRoom = document.getElementById("roomname").value;
+    enviar(nombreUsuario,nombreRoom);
+  }
 }
 
 export default CreateGame;
