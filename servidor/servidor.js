@@ -15,13 +15,17 @@ io.on('connection', socket =>{
         console.log("Usuario conectado");
         
     })
-    socket.on('Juego',(userName,roomName)=>{
-        io.emit('Juego', {userName,roomName});
-        console.log('Juego',userName,roomName);
-        roomNames.push(roomName);
+
+    socket.on('Selector', ()=>{
+        io.emit('Refresh', roomNames);
     })
-    console.log(roomNames[0]); //Prueba de que si se guarda en la lista
-    console.log(roomNames[1]); //Prueba de que si se guarda en la lista   
+
+    socket.on('Juego',(roomName, userName)=>{
+        roomNames.push(roomName);
+        io.emit('Refresh', roomNames);
+        console.log(roomNames[0])
+        console.log(roomNames[1])
+    }) 
 });
 
 servidor.listen(3000, ()=> console.log("Servidor inicializado"));

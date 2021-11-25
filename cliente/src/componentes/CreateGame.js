@@ -8,9 +8,10 @@ const CreateGame=()=> {
   //const [roomName,setRoomName] = useState("");
 
  const enviar = (userName,roomName)=>{
-   socket.emit('Juego', userName,roomName);
+   socket.emit('Juego', roomName, userName);
   }
 
+  
   return (
        <div className="App"> 
         <header class="join-header">

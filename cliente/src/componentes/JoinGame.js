@@ -1,7 +1,20 @@
 import './CreateGame.css';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import socket from './Socket';
+
 
 const JoinGame=()=> {
+  const [namerooms, nameroomsSet] = useState([]);
+  let options = namerooms.map((namerooms) => <option key={namerooms}>{namerooms}</option>);
+
+  const getList = () =>{
+    socket.emit('Selector');
+  }
+
+  socket.on('Refresh',roomNames=>{
+    nameroomsSet(roomNames);
+  })
+
   return (
   <div className="App"> 
       <header class="join-header">
@@ -21,13 +34,10 @@ const JoinGame=()=> {
             </div>
             <div class="form-control">
               <label for="room">Room</label>
-              <select name="room" id="room">
-                <option value="JavaScript">JavaScript</option>
-                <option value="Python">Python</option>
-                <option value="PHP">PHP</option>
-                <option value="C#">C#</option>
-                <option value="Ruby">Ruby</option>
-                <option value="Java">Java</option>
+              <select name="room" id="room" onClick={getList}>
+                {
+                  options
+                  }
               </select>
             </div> 
             <div class="form-control">
@@ -39,7 +49,7 @@ const JoinGame=()=> {
                 required
               />
             </div>
-            <button type="submit" class="btn">Join Game</button>
+            <button type="submit" class="btn" >Join Game</button>
           </form>
         </main>
       </div>
