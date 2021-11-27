@@ -4,6 +4,9 @@ import socket from './componentes/Socket';
 import "./App.css"
 import CreateGame from "./componentes/CreateGame";
 import JoinGame from "./componentes/JoinGame";
+import Tablero from "./componentes/Tablero";
+import WaitingRoom4 from "./componentes/WaitingRoom4";
+import WaitingRoom2 from "./componentes/WaitingRoom2";
 
 
 function App() {
@@ -21,8 +24,11 @@ function App() {
       </div>
       <hr/>
       <Routes>
-          <Route exact path="/joinGame" element={<JoinGame/>}/>
-          <Route exact path="/createGame" element={<CreateGame/>}/>
+        <Route exact path="/createBoard" element={<Tablero/>}/>
+        <Route exact path="/joinGame" element={<JoinGame/>}/>
+        <Route exact path="/createGame" element={<CreateGame/>}/>
+        <Route exact path="/waitingRoom2" element={<WaitingRoom2/>}/>
+        <Route exact path="/waitingRoom4" element={<WaitingRoom4/>}/>
       </Routes>
       </div>
     </Router>  

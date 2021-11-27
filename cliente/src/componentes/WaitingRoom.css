@@ -1,0 +1,38 @@
+.avatarP{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.headerWR{
+    margin-top: 40px;
+}
+
+.infoRoom{
+    font-size: 18px;
+    margin-top: 50px;
+    text-align: left;
+    margin-bottom: 20px;
+    
+}
+
+.perfil{
+    text-align: center;
+    height: 100%;
+    width: 25%;
+    float: left;
+}
+
+.usersContainer2{
+    margin-top: 50px;
+    margin-left: 25%;
+}
+
+.usersContainer4{
+    margin-top: 50px;
+}
+
+.userName{
+    font-size: 19px;
+    margin-top: 14px;
+}
