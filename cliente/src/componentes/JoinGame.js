@@ -1,18 +1,33 @@
 import './CreateGame.css';
+import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 import React, { useState, useEffect } from 'react';
 import socket from './Socket';
 
 
 const JoinGame=()=> {
   const [namerooms, nameroomsSet] = useState([]);
-  let options = namerooms.map((namerooms) => <option key={namerooms}>{namerooms}</option>);
-
+  const history = useNavigate();
+  let options = namerooms.map((namerooms) => <option key={namerooms.name}>{namerooms.name}</option>);
+  
   const getList = () =>{
     socket.emit('Selector');
   }
 
+  const validarRoom = (nombreUsuario,nombreRoom,idRoom)=>{
+    socket.emit('validarRoom', nombreUsuario, nombreRoom,idRoom);
+  }
+
   socket.on('Refresh',roomNames=>{
     nameroomsSet(roomNames);
+  })
+
+  socket.on("Usuario unido 1", infoRoom=>{
+    history("/waitingRoom2");
+  })
+
+  socket.on("Usuario unido 2",infoRoom=>{
+    history("/waitingRoom4");
   })
 
   return (
@@ -44,17 +59,26 @@ const JoinGame=()=> {
               <label for="username">Id Room</label>
               <input
                 type="text"
-                name="username"
-                id="username"
+                name="roomId"
+                id="roomId"
                 required
               />
             </div>
-            <button type="submit" class="btn" >Join Game</button>
+            <button type="submit" class="btn" onClick={capturarJugador}>Join Game</button>
           </form>
         </main>
       </div>
     </div>
   );
+  function capturarJugador(){
+    var nombreUsuario = document.getElementById("username").value;
+    var nombreRoom = document.getElementById("room").value;
+    var idRoom = document.getElementById("roomId").value;
+    if(document.getElementById("username").value.length > 0 && document.getElementById("roomId").value.length > 0  && document.getElementById("room").value.length > 0){
+        
+        //history("/waitingRoom4");
+        validarRoom(nombreUsuario,nombreRoom,idRoom);
+    }
+  }
 }
-
 export default JoinGame;

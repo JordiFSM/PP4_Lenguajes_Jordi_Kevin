@@ -12,7 +12,7 @@ const WaitingRoom2 = () =>{
             <header class="headerWR">
                 <h1><i >SALA DE ESPERA</i> </h1>
                 <h2  className="infoRoom">RoomName: </h2>
-                <h2 className="infoRoom">IdRoom: </h2>
+                <h2 className="infoRoom">IdRoom: {id} </h2>
                 <div className="usersContainer2">
                     <div className="perfil">
                         <img className="avatarP" src="https://c0.klipartz.com/pngpicture/536/90/gratis-png-logo-negro-iconos-de-computadora-usuario-perfil-login-avatar-descripcion.png" />

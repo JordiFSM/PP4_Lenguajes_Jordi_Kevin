@@ -5,11 +5,9 @@ import socket from './Socket';
 
 const CreateGame=()=> {
   const history = useNavigate();
-  //const [userName,setUserName] = useState("");
-  //const [roomName,setRoomName] = useState("");
 
- const enviar = (userName,roomName)=>{
-   socket.emit('Juego', roomName, userName);
+ const enviar = (userName,roomName,cantJugadores)=>{
+   socket.emit('Juego', roomName, userName,cantJugadores);
   }
 
   
@@ -37,8 +35,8 @@ const CreateGame=()=> {
               />
               <label for="players">Cantidad de jugadores</label>
               <select name="cantRoom" id="cantRoom">
-                <option value="2">2</option>
-                <option value="4">4</option>
+                <option >2</option>
+                <option >4</option>
               </select>
             <button type="submit" class="btn" onClick={capturar}>Create Game</button>
             </div>
@@ -50,13 +48,13 @@ const CreateGame=()=> {
   function capturar(){
     var nombreUsuario = document.getElementById("username").value;
     var nombreRoom = document.getElementById("roomname").value;
-    
+    var cantJugadores = document.getElementById("cantRoom").value;
     if(document.getElementById("username").value.length > 0 && document.getElementById("roomname").value.length > 0){
       if(document.getElementById("cantRoom").value == 2){
-        enviar(nombreUsuario,nombreRoom);
+        enviar(nombreUsuario,nombreRoom,cantJugadores);
         history("/waitingRoom2");
       }else{
-        enviar(nombreUsuario,nombreRoom);
+        enviar(nombreUsuario,nombreRoom,cantJugadores);
         history("/waitingRoom4");
       }
     }
