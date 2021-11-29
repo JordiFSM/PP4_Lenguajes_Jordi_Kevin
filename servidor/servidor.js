@@ -14,7 +14,6 @@ io.on('connection', socket =>{
 
     socket.on('conectado', ()=>{
         console.log("Usuario conectado");
-        
     })
 
     socket.on('Selector', ()=>{
@@ -36,8 +35,14 @@ io.on('connection', socket =>{
             }
         };
         roomNames.push(partida);
-        io.emit('Crear sala 2', userName,idR, roomName);
-        io.emit('Refresh', roomNames);
+
+        if(partida.cantJug == '2'){
+            io.emit('Crear sala 2', userName,idR, roomName,'1');
+            io.emit('Refresh', roomNames);
+        }else{
+            io.emit('Crear sala 4', userName,idR, roomName,'1');
+            io.emit('Refresh', roomNames);
+        }
     }) 
     function idRandom() {
         return Math.floor(Math.random() * (10000 - 1)) + 1
@@ -52,7 +57,6 @@ io.on('connection', socket =>{
                         if(roomNames[cont].user2 == null){
                             roomNames[cont].user2 = nombreUsuario;
                             io.emit("sala espera 2",roomNames[cont].user1,roomNames[cont].user2,roomNames[cont].name,roomNames[cont].id);
-                            
                             io.emit("Jugador 2 unido",roomNames[cont].user2,roomNames[cont].id);
                            }else{
                             io.emit("Sala LLena");
@@ -66,15 +70,18 @@ io.on('connection', socket =>{
                     if(roomNames[cont].id == idRoom){
                         if(roomNames[cont].user2 == null){
                             roomNames[cont].user2 = nombreUsuario;
-                            io.emit("Usuario unido 2",roomNames[cont]);
+                            io.emit("sala espera 2.1",roomNames[cont].user1,roomNames[cont].name,roomNames[cont].id);
+                            io.emit("Jugador 2.1 unido",roomNames[cont].user2,roomNames[cont].id);
                         }else{
                             if(roomNames[cont].user3 == null){
                                 roomNames[cont].user3 = nombreUsuario;
-                                io.emit("Usuario unido 2",roomNames[cont]);
+                                io.emit("sala espera 3",roomNames[cont].user1,roomNames[cont].name,roomNames[cont].id);
+                                io.emit("Jugador 3 unido",roomNames[cont].user3,roomNames[cont].user2,roomNames[cont].id);
                             }else{
                                 if(roomNames[cont].user4 == null){
                                     roomNames[cont].user4 = nombreUsuario;
-                                    io.emit("Usuario unido 2",roomNames[cont]);
+                                    io.emit("sala espera 4",roomNames[cont].user1,roomNames[cont].name,roomNames[cont].id);
+                                    io.emit("Jugador 4 unido",roomNames[cont].user4,roomNames[cont].user3,roomNames[cont].user2,roomNames[cont].id);
                                 }else{
                                 io.emit('Partida Llena');
                                 }

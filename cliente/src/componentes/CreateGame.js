@@ -10,8 +10,12 @@ const CreateGame=()=> {
    socket.emit('Juego', roomName, userName,cantJugadores);
   }
 
-  socket.on('Crear sala 2', (nombre, idroom, sala)=>{
-    history("/waitingRoom2/"+nombre+","+idroom+","+sala);
+  socket.on('Crear sala 2', (nombre, idroom, sala,num)=>{
+    history("/waitingRoom2/"+nombre+","+idroom+","+sala+","+num);
+  })
+
+  socket.on('Crear sala 4', (nombre, idroom, sala,num)=>{
+    history("/waitingRoom4/"+nombre+","+idroom+","+sala+","+num);
   })
   
   return (
@@ -57,7 +61,6 @@ const CreateGame=()=> {
         enviar(nombreUsuario,nombreRoom,cantJugadores);
       }else{
         enviar(nombreUsuario,nombreRoom,cantJugadores);
-        history("/waitingRoom4");
       }
     }
   }

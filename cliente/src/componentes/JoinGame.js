@@ -22,8 +22,20 @@ const JoinGame=()=> {
     nameroomsSet(roomNames);
   })
 
-  socket.on('sala espera 2', (user1,user2,name,idr) =>{
+  socket.on('sala espera 2', (user1,name,idr) =>{
     history("/waitingRoom2/"+user1 +","+idr+","+name);
+  })
+
+  socket.on('sala espera 2.1', (user1,name,idr) =>{
+    history("/waitingRoom4/"+user1 +","+idr+","+name);
+  })
+
+  socket.on('sala espera 3', (user1,name,idr) =>{
+    history("/waitingRoom4/"+user1 +","+idr+","+name);
+  })
+
+  socket.on('sala espera 4', (user1,name,idr) =>{
+    history("/waitingRoom4/"+user1 +","+idr+","+name);
   })
 
   return (

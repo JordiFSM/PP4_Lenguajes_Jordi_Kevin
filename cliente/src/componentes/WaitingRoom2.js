@@ -16,25 +16,51 @@ const WaitingRoom2 = () =>{
     })
 
     console.log(id[1]) ;
-    return(
-        <div className="Body">
-            <header class="headerWR">
-                <h1><i >SALA DE ESPERA</i> </h1>
-                <h2  className="infoRoom">RoomName: {id[2]} </h2>
-                <h2 className="infoRoom">IdRoom: {id[1]} </h2>
-                <div className="usersContainer2">
-                    <div className="perfil">
-                        <img className="avatarP" src="https://c0.klipartz.com/pngpicture/536/90/gratis-png-logo-negro-iconos-de-computadora-usuario-perfil-login-avatar-descripcion.png" />
-                        <h1 className="userName">{id[0]}</h1>
+    if(id[3] == '1'){
+        return(
+            <div className="Body">
+                <header class="headerWR">
+                    <h1><i >SALA DE ESPERA</i> </h1>
+                    <h2  className="infoRoom">RoomName: {id[2]} </h2>
+                    <h2 className="infoRoom">IdRoom: {id[1]} </h2>
+                    <div className="usersContainer2">
+                        <div className="perfil">
+                            <img className="avatarP" src="https://c0.klipartz.com/pngpicture/536/90/gratis-png-logo-negro-iconos-de-computadora-usuario-perfil-login-avatar-descripcion.png" />
+                            <h1 className="userName">{id[0]}</h1>
+                        </div>
+                        <div className="perfil">
+                            <img className="avatarP" src="https://c0.klipartz.com/pngpicture/536/90/gratis-png-logo-negro-iconos-de-computadora-usuario-perfil-login-avatar-descripcion.png" />
+                            <h1 className="userName">{jugador2}</h1>
+                        </div>
+                        <button type="submit" class="btnUnirJuego" onClick={empezarJuego} >Unirse a Juego</button>
                     </div>
-                    <div className="perfil">
-                        <img className="avatarP" src="https://c0.klipartz.com/pngpicture/536/90/gratis-png-logo-negro-iconos-de-computadora-usuario-perfil-login-avatar-descripcion.png" />
-                        <h1 className="userName">{jugador2}</h1>
+                </header>
+            </div>
+        )
+    }else{
+        return(
+            <div className="Body">
+                <header class="headerWR">
+                    <h1><i >SALA DE ESPERA</i> </h1>
+                    <h2  className="infoRoom">RoomName: {id[2]} </h2>
+                    <h2 className="infoRoom">IdRoom: {id[1]} </h2>
+                    <div className="usersContainer2">
+                        <div className="perfil">
+                            <img className="avatarP" src="https://c0.klipartz.com/pngpicture/536/90/gratis-png-logo-negro-iconos-de-computadora-usuario-perfil-login-avatar-descripcion.png" />
+                            <h1 className="userName">{id[0]}</h1>
+                        </div>
+                        <div className="perfil">
+                            <img className="avatarP" src="https://c0.klipartz.com/pngpicture/536/90/gratis-png-logo-negro-iconos-de-computadora-usuario-perfil-login-avatar-descripcion.png" />
+                            <h1 className="userName">{jugador2}</h1>
+                        </div>
                     </div>
-                </div>
-            </header>
-        </div>
-    )
+                </header>
+            </div>
+        )
+    }
+    function empezarJuego(){
+        
+    }
     
 }
 
