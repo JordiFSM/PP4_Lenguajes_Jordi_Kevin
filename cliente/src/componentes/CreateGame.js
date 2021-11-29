@@ -10,6 +10,9 @@ const CreateGame=()=> {
    socket.emit('Juego', roomName, userName,cantJugadores);
   }
 
+  socket.on('Crear sala 2', (nombre, idroom, sala)=>{
+    history("/waitingRoom2/"+nombre+","+idroom+","+sala);
+  })
   
   return (
        <div className="App"> 
@@ -52,7 +55,6 @@ const CreateGame=()=> {
     if(document.getElementById("username").value.length > 0 && document.getElementById("roomname").value.length > 0){
       if(document.getElementById("cantRoom").value == 2){
         enviar(nombreUsuario,nombreRoom,cantJugadores);
-        history("/waitingRoom2");
       }else{
         enviar(nombreUsuario,nombreRoom,cantJugadores);
         history("/waitingRoom4");

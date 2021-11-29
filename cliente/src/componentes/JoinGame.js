@@ -1,7 +1,7 @@
 import './CreateGame.css';
 import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import socket from './Socket';
 
 
@@ -22,12 +22,8 @@ const JoinGame=()=> {
     nameroomsSet(roomNames);
   })
 
-  socket.on("Usuario unido 1", infoRoom=>{
-    history("/waitingRoom2");
-  })
-
-  socket.on("Usuario unido 2",infoRoom=>{
-    history("/waitingRoom4");
+  socket.on('sala espera 2', (user1,user2,name,idr) =>{
+    history("/waitingRoom2/"+user1 +","+idr+","+name);
   })
 
   return (
@@ -37,7 +33,6 @@ const JoinGame=()=> {
       </header>
       <div class="join-container">
         <main class="join-main">
-          <form action="chat.html">
             <div class="form-control">
               <label for="username">User Name</label>
               <input
@@ -65,7 +60,6 @@ const JoinGame=()=> {
               />
             </div>
             <button type="submit" class="btn" onClick={capturarJugador}>Join Game</button>
-          </form>
         </main>
       </div>
     </div>
@@ -75,8 +69,6 @@ const JoinGame=()=> {
     var nombreRoom = document.getElementById("room").value;
     var idRoom = document.getElementById("roomId").value;
     if(document.getElementById("username").value.length > 0 && document.getElementById("roomId").value.length > 0  && document.getElementById("room").value.length > 0){
-        
-        //history("/waitingRoom4");
         validarRoom(nombreUsuario,nombreRoom,idRoom);
     }
   }

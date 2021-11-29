@@ -11,6 +11,7 @@ let roomNames = [];
 io.on('connection', socket =>{
 
     
+
     socket.on('conectado', ()=>{
         console.log("Usuario conectado");
         
@@ -21,9 +22,10 @@ io.on('connection', socket =>{
     })
 
     socket.on('Juego',(roomName, userName,cantJugadores)=>{
+        const  idR = idRandom();
         const partida = {
             name:roomName,
-            id:idRandom(),
+            id: idR,
             user1:userName,
             user2:null,
             user3:null,
@@ -34,9 +36,8 @@ io.on('connection', socket =>{
             }
         };
         roomNames.push(partida);
+        io.emit('Crear sala 2', userName,idR, roomName);
         io.emit('Refresh', roomNames);
-        console.log(roomNames[0])
-        console.log(roomNames[1])
     }) 
     function idRandom() {
         return Math.floor(Math.random() * (10000 - 1)) + 1
@@ -50,8 +51,10 @@ io.on('connection', socket =>{
                     if(roomNames[cont].id == idRoom){
                         if(roomNames[cont].user2 == null){
                             roomNames[cont].user2 = nombreUsuario;
-                            io.emit("Usuario unido 1",roomNames[cont]);
-                        }else{
+                            io.emit("sala espera 2",roomNames[cont].user1,roomNames[cont].user2,roomNames[cont].name,roomNames[cont].id);
+                            
+                            io.emit("Jugador 2 unido",roomNames[cont].user2,roomNames[cont].id);
+                           }else{
                             io.emit("Sala LLena");
                         }
                     }else{
