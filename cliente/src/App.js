@@ -29,7 +29,8 @@ function App() {
         <Route exact path="/createGame" element={<CreateGame/>}/>
         <Route exact path="/waitingRoom2/:idRoom" element={<WaitingRoom2/>}/>
         <Route exact path="/waitingRoom4/:parametros" element={<WaitingRoom4/>}/>
-        <Route exact path="/tablero/" element={<Tablero/>}/>
+        <Route exact path="/tablero2/:parametros" element={<Tablero/>}/>
+        <Route exact path="/tablero4/" element={<Tablero/>}/>
       </Routes>
       </div>
     </Router>  

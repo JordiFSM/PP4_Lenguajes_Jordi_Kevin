@@ -1,18 +1,40 @@
+import React, { useState } from 'react';
+import { useParams, useNavigate} from "react-router-dom";
+import socket from './Socket';
 import './Tablero.css';
-import React from 'react';
 
-function Tablero() {
+const Tablero =() =>{
+  const history = useNavigate();
+  let {parametros} = useParams();
+  let id = parametros.valueOf().split(",");
+  const [jugador1, jugador1Set] = useState("");
+  const [jugador2, jugador2Set] = useState("");
+  const [jugador3, jugador3Set] = useState("");
+  const [jugador4, jugador4Set] = useState("");
+
+  socket.on('setJugador1', (nombre, id2)=>{
+    if (id2 === id[0]){
+        jugador1Set(nombre);
+    }
+  })
+
+  socket.on('setJugador2', (nombre, id2)=>{
+    if (id2 === id[0]){
+        jugador2Set(nombre);
+    }
+  })
+  
   return (
     <div>
       <h1>Tablero de parchis</h1>
       <table border="1px">
       
         <tr>
-          <td class="amarillo" colspan="7" rowspan="7"></td> 
+          <td class="amarillo" colspan="7" rowspan="7">{jugador1}</td> 
           <td colspan="2"><button class="am">1</button></td>
           <td colspan="2"><button class="am">68</button></td> 
           <td colspan="2"><button class="am">67</button></td> 
-          <td class="verde" colspan="7" rowspan="7"></td>
+          <td class="verde" colspan="7" rowspan="7">{jugador3}</td>
         </tr>
 
         <tr>
@@ -76,7 +98,7 @@ function Tablero() {
     
         <tr>
           <td><button class="am">9</button></td>
-          <td colspan="4" rowspan="4"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Heraldic_Royal_Crown_of_Spain.svg/1200px-Heraldic_Royal_Crown_of_Spain.svg.png" /></td>
+          <td colspan="4" rowspan="4"><img src="https://www.trecebits.com/wp-content/uploads/2016/12/colores.jpg" /></td>
           <td><button class="am">59</button></td>
         </tr>
       
@@ -133,11 +155,11 @@ function Tablero() {
         </tr>
         
         <tr>
-          <td class="azul" colspan="7" rowspan="7"></td>
+          <td class="azul" colspan="7" rowspan="7">{jugador4}</td>
           <td colspan="2"><button class="am">27</button></td>
           <td class="rojo" colspan="2">-</td>
           <td colspan="2"><button class="am">41</button></td>
-          <td class="rojo" colspan="7" rowspan="7"></td>
+          <td class="rojo" colspan="7" rowspan="7">{jugador2}</td>
         </tr>
       
         <tr>
@@ -179,4 +201,5 @@ function Tablero() {
   </div>
   );
 }
+
 export default Tablero;

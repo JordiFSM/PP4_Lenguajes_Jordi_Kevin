@@ -12,6 +12,12 @@ io.on('connection', socket =>{
 
     
 
+    socket.on("sala tablero 2 llena", (idR, user1, user2) =>{
+        io.emit('Tablero2', idR);
+        io.emit('setJugador1', user1, idR);
+        io.emit('setJugador2', user2, idR);
+    })
+
     socket.on('conectado', ()=>{
         console.log("Usuario conectado");
     })
@@ -26,7 +32,7 @@ io.on('connection', socket =>{
             name:roomName,
             id: idR,
             user1:userName,
-            user2:null,
+            user2:"NO",
             user3:null,
             user4:null,
             cantJug:cantJugadores,
@@ -35,12 +41,11 @@ io.on('connection', socket =>{
             }
         };
         roomNames.push(partida);
-
         if(partida.cantJug == '2'){
-            io.emit('Crear sala 2', userName,idR, roomName,'1');
+            io.emit('Crear sala 2', userName,"",idR, roomName,'1');
             io.emit('Refresh', roomNames);
         }else{
-            io.emit('Crear sala 4', userName,idR, roomName,'1');
+            io.emit('Crear sala 4', userName,"",idR, roomName,'1');
             io.emit('Refresh', roomNames);
         }
     }) 
@@ -54,7 +59,7 @@ io.on('connection', socket =>{
             if(roomNames[cont].cantJug == '2'){
                 if(roomNames[cont].name == nombreRoom){
                     if(roomNames[cont].id == idRoom){
-                        if(roomNames[cont].user2 == null){
+                        if(roomNames[cont].user2 == "NO"){
                             roomNames[cont].user2 = nombreUsuario;
                             io.emit("sala espera 2",roomNames[cont].user1,roomNames[cont].user2,roomNames[cont].name,roomNames[cont].id);
                             io.emit("Jugador 2 unido",roomNames[cont].user2,roomNames[cont].id);
@@ -94,8 +99,6 @@ io.on('connection', socket =>{
             }
         cont++;
         }
-        console.log(roomNames[0])
-        console.log(roomNames[1])
     })
 });
 servidor.listen(3000, ()=> console.log("Servidor inicializado"));

@@ -10,8 +10,8 @@ const CreateGame=()=> {
    socket.emit('Juego', roomName, userName,cantJugadores);
   }
 
-  socket.on('Crear sala 2', (nombre, idroom, sala,num)=>{
-    history("/waitingRoom2/"+nombre+","+idroom+","+sala+","+num);
+  socket.on('Crear sala 2', (user1, user2, idroom, sala,num)=>{
+    history("/waitingRoom2/"+user1+","+user2+","+idroom+","+sala+","+num);
   })
 
   socket.on('Crear sala 4', (nombre, idroom, sala,num)=>{
