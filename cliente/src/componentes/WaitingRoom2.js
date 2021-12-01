@@ -4,26 +4,31 @@ import socket from './Socket';
 import "./WaitingRoom.css";
 import "./CreateGame.css";
 
+//objetivo: Se encarga de crear la sala de espera de 2 jugadores
+//entrada: NA
+//salida: La ventana de sala de espera de 2 jugadores
+//restricciones: NA
 const WaitingRoom2 = () =>{
     const history = useNavigate();
     let {idRoom} = useParams();
     let id = idRoom.valueOf().split(",");
     const [jugador2, jugador2Set] = useState("Esperando..");
 
+    //objetivo: Se encarga de recibir la informacion del jugador 2 para ingresarlo en la sala de espera e 2 jugadores
     socket.on('Jugador 2 unido', (nombre, id2)=>{
         if (id2 == id[2]){
             jugador2Set(nombre);
         }
     })
 
+    //objetivo: Se encarga de recibir la informacion del id de la sala para crear el tablero de 2 jugadores
     socket.on('Tablero2', (id2)=>{
         if (id2 == id[2]){
             history("/tablero2/"+id[2]+",A");
         }
     })
 
-    
-
+    //objetivo: Se encarga de crear la sala de espera si es el jugador 1 se le habilita el boton de iniciar juego si no lo es solo se le habilita la sala de espera
     if(id[4] == '1'){
         return(
             <div className="Body">
@@ -69,8 +74,13 @@ const WaitingRoom2 = () =>{
             </div>
         )
     }
+
+    //objetivo: Se encarga de capturar el click del boton iniciar juego
+    //entrada: NA
+    //salida: Enviar la informacion de la sala de espera al servidor para que este inicie el juego
+    //restricciones: La sala debe de estar llena para poder ealizar esta funcion
     function empezarJuego(){
-        if(jugador2.length > 1){
+        if(jugador2 != "Esperando.."){
             socket.emit("sala tablero 2 llena", id[2], id[0], jugador2);
         }
     }

@@ -8,7 +8,10 @@ import Tablero from "./componentes/Tablero";
 import WaitingRoom4 from "./componentes/WaitingRoom4";
 import WaitingRoom2 from "./componentes/WaitingRoom2";
 
-
+//objetivo: Crear la ventana principal de la pagina web y cargar las rutas que van a ser utilizadas 
+//entrada: NA
+//salida: La ventana principal de la pagina web
+//restricciones: NA
 function App() {
   socket.emit('conectado',"hola desde cliente");
   return (
@@ -30,7 +33,6 @@ function App() {
         <Route exact path="/waitingRoom2/:idRoom" element={<WaitingRoom2/>}/>
         <Route exact path="/waitingRoom4/:parametros" element={<WaitingRoom4/>}/>
         <Route exact path="/tablero2/:parametros" element={<Tablero/>}/>
-        <Route exact path="/tablero4/" element={<Tablero/>}/>
       </Routes>
       </div>
     </Router>  

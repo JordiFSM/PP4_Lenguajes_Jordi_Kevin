@@ -3,6 +3,11 @@ import { useParams, useNavigate} from "react-router-dom";
 import socket from './Socket';
 import './Tablero.css';
 
+//objetivo: Se encarga de crear el tablero
+//entrada: NA
+//salida: La ventana del tablero
+//restricciones: NA
+
 const Tablero =() =>{
   const history = useNavigate();
   let {parametros} = useParams();
@@ -12,18 +17,45 @@ const Tablero =() =>{
   const [jugador3, jugador3Set] = useState("");
   const [jugador4, jugador4Set] = useState("");
 
+  //objetivo: Se encarga de cambiar la informacion del jugador 1 para ponerlo en el tablero ya sea de 2 o 4 jugadores
   socket.on('setJugador1', (nombre, id2)=>{
     if (id2 === id[0]){
         jugador1Set(nombre);
     }
   })
 
+  //objetivo: Se encarga de cambiar la informacion del jugador 2 para ponerlo en el tablero del tablero de 2 jugadores
   socket.on('setJugador2', (nombre, id2)=>{
     if (id2 === id[0]){
         jugador2Set(nombre);
     }
   })
-  
+
+  //objetivo: Se encarga de cambiar la informacion del jugador 2 para ponerlo en el tablero del tablero de 4 jugadores
+  socket.on('setJugador2.1', (nombre, id2)=>{
+    if (id2 === id[0]){
+        jugador2Set(nombre);
+    }
+  })
+
+  //objetivo: Se encarga de cambiar la informacion del jugador 3 para ponerlo en el tablero del tablero de 4 jugadores
+  socket.on('setJugador3', (nombre,user2, id2)=>{
+    if (id2 === id[0]){
+        jugador3Set(nombre);
+        jugador2Set(user2);
+    }
+  })
+
+  //objetivo: Se encarga de cambiar la informacion del jugador 4 para ponerlo en el tablero del tablero de 4 jugadores
+  socket.on('setJugador4', (nombre,user3,user2, id2)=>{
+    if (id2 === id[0]){
+        jugador4Set(nombre);
+        jugador3Set(user3);
+        jugador2Set(user2);
+    }
+  })
+
+  //objetivo: Se encarga de crear el tablero
   return (
     <div>
       <h1>Tablero de parchis</h1>

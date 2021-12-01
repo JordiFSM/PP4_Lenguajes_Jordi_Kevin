@@ -3,21 +3,28 @@ import React from 'react';
 import { useNavigate } from "react-router-dom"
 import socket from './Socket';
 
+//objetivo: Se encarga de crear la ventana de create game
+//entrada: NA
+//salida: La ventana de create game
+//restricciones: NA
 const CreateGame=()=> {
   const history = useNavigate();
 
+ //objetivo: Se encarga de enviar la informacion de la sala creada al servidor
  const enviar = (userName,roomName,cantJugadores)=>{
    socket.emit('Juego', roomName, userName,cantJugadores);
   }
 
+  //objetivo: Se encarga recibir la informacion de la sala ya validada de 2 jugadores para posteriormente crearla
   socket.on('Crear sala 2', (user1, user2, idroom, sala,num)=>{
     history("/waitingRoom2/"+user1+","+user2+","+idroom+","+sala+","+num);
   })
-
-  socket.on('Crear sala 4', (nombre, idroom, sala,num)=>{
+  //objetivo: Se encarga recibir la informacion de la sala ya validada de 4 jugadores para posteriormente crearla
+  socket.on('Crear sala 4', (nombre,user2, idroom, sala,num)=>{
     history("/waitingRoom4/"+nombre+","+idroom+","+sala+","+num);
   })
   
+  //objetivo: Se encarga de crear la ventana de create game 
   return (
        <div className="App"> 
         <header class="join-header">
@@ -52,6 +59,10 @@ const CreateGame=()=> {
     </div>
   );
 
+  //objetivo: Se encarga de capturar la informacion indicada por el usuario para seguidamente enviarla a validar
+  //entrada: NA
+  //salida: Enviar la informacion de la sala a crear al servidor
+  //restricciones: El username y el roomname no pueden estar vacios
   function capturar(){
     var nombreUsuario = document.getElementById("username").value;
     var nombreRoom = document.getElementById("roomname").value;
@@ -65,5 +76,4 @@ const CreateGame=()=> {
     }
   }
 }
-
 export default CreateGame;

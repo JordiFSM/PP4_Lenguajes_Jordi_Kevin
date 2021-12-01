@@ -3,29 +3,38 @@ const { ftruncateSync } = require('fs');
 const http = require('http');
 const app = express();
 const servidor = http.createServer(app);
-
 const socketio = require('socket.io');
 const io = socketio(servidor);
 let roomNames = [];
 
+
 io.on('connection', socket =>{
-
     
-
+    //objetivo: Recibe la informacion de la sala de 2 jugadores de un tablero que esta lista para iniciar y manda dicha informacion a todos los clientes
     socket.on("sala tablero 2 llena", (idR, user1, user2) =>{
         io.emit('Tablero2', idR);
         io.emit('setJugador1', user1, idR);
         io.emit('setJugador2', user2, idR);
     })
-
+    //objetivo: Recibe la informacion de la sala de 4 jugadores de un tablero que esta lista para iniciar y manda dicha informacion a todos los clientes
+    socket.on("Sala tablero 4 llena", (idR, user1, user2,user3,user4) =>{
+        io.emit('Tablero4', idR);
+        io.emit('setJugador1', user1, idR);
+        io.emit('setJugador2.1', user2, idR);
+        io.emit('setJugador3', user3,user2, idR);
+        io.emit('setJugador4', user4,user3,user2, idR);
+    })
+    //objetivo: Recibe la informacion de que un usuario se conecto y la muestra en la consola del servidor
     socket.on('conectado', ()=>{
         console.log("Usuario conectado");
     })
 
+    //objetivo: Recibe la solicitud para enviar la nueva lista de salas a los clientes
     socket.on('Selector', ()=>{
         io.emit('Refresh', roomNames);
     })
 
+    //objetivo: Recibe la informacion de una sala de juego para crear la sala en un objeto, meterla en una lista y mandar la informacion de dicha sala a todos los clientes para su creacion
     socket.on('Juego',(roomName, userName,cantJugadores)=>{
         const  idR = idRandom();
         const partida = {
@@ -49,10 +58,16 @@ io.on('connection', socket =>{
             io.emit('Refresh', roomNames);
         }
     }) 
+
+    //objetivo: Crear un numero entero positivo de manera aleatoria
+    //entrada: NA
+    //salida: Un numero entero positivo
+    //restricciones: NA
     function idRandom() {
         return Math.floor(Math.random() * (10000 - 1)) + 1
     }
 
+    //objetivo: Recibe la informacion del usario que se quiere unir a la sala y si esta informacion coincide dicho jugador sera insertado en el objeto y en la sala
     socket.on('validarRoom',(nombreUsuario, nombreRoom,idRoom)=>{
         let cont =0;
         while(roomNames.length-1 >= cont){
@@ -73,7 +88,7 @@ io.on('connection', socket =>{
             }else{
                 if(roomNames[cont].name == nombreRoom){
                     if(roomNames[cont].id == idRoom){
-                        if(roomNames[cont].user2 == null){
+                        if(roomNames[cont].user2 == "NO"){
                             roomNames[cont].user2 = nombreUsuario;
                             io.emit("sala espera 2.1",roomNames[cont].user1,roomNames[cont].name,roomNames[cont].id);
                             io.emit("Jugador 2.1 unido",roomNames[cont].user2,roomNames[cont].id);
